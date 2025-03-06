@@ -1,0 +1,408 @@
+<%- include('adminDashboardHeader.ejs') %>
+<!-- pending thesis-->
+<button type="button" class="btn btn-primary view-btn" style="margin-left: 15px;" disabled>
+  Pending <span class="badge bg-secondary"><%=pendingtheses.length%> </span>
+</button>
+<div class="row m-2">
+  <% pendingtheses.forEach((thesis,index)=> { %>
+  <div class="card mb-3 col-5 m-2">
+    <div class="card-body">
+      <span>
+        <h4 class="card-title "><i class="fas fa-graduation-cap"></i>
+          <%=thesis.title%>
+          </h5>
+      </span>
+      <p class="card-text">
+        <br>
+        <strong>Field: </strong>
+        <%=thesis.field%>
+        <br>
+        <strong>Cluster: </strong>
+        <%=thesis.cluster%>
+        <br>
+        <br>
+        <button type="button" class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#moreInfo<%=thesis.serial_number%>">
+          <i class="fas fa-info"></i>
+          More Info
+        </button>
+        <button type="button" class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#deletethesis<%=thesis.serial_number%>">
+          <i class="fas fa-minus-square"></i>
+          Delete
+        </button>
+        <!-- Info Modal -->
+      <div class="modal fade" id="moreInfo<%=thesis.serial_number%>" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="">
+                <%=thesis.title%>
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped table-bordered">
+                  <tr>
+                    <td><i class="fas fa-hashtag"></i> Id </td>
+                    <td>
+                      <%=thesis.id%>
+                    </td>
+                  </tr>
+                <tr>
+                  <td><i class="far fa-lightbulb"></i> Field </td>
+                  <td>
+                    <%=thesis.field%>
+                  </td>
+                </tr>
+                <tr>
+                  <td> <i class="fas fa-university"></i> Cluster </td>
+                  <td>
+                   <%=thesis.cluster%>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary view-btn" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- delete modal-->
+      <div class="modal fade" id="deletethesis<%=thesis.serial_number%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                <%=thesis.title%>
+              </h5> 
+              <button type="button" class="btn-close view-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/admin/deletependingthesis/<%=thesis.id%>" method="post">
+                Are you sure you want to delete this thesis?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary view-btn" data-bs-dismiss="modal">No</button>
+              <button type="submit" class="btn btn-primary view-btn">Yes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <% }); %>
+</div>
+<!-- ongoing thesis-->
+<button type="button" class="btn btn-primary view-btn" style="margin-left: 15px;" disabled>
+  Ongoing <span class="badge bg-secondary"><%=ongoingtheses.length%> </span>
+</button>
+<div class="row m-2">
+  <% ongoingtheses.forEach(thesis=> { %>
+  <div class="card mb-3 col-5 m-2">
+    <div class="card-body">
+      <span>
+        <h4 class="card-title "><i class="fas fa-graduation-cap"></i>
+          <%=thesis.title%>
+          </h5>
+      </span>
+      <p class="card-text">
+        <br>
+        <strong>Student: </strong>
+        <%=thesis.S_firstname%> <%=thesis.S_lastname%>
+        <br>
+        <strong>Supervisor: </strong>
+        <%=thesis.Sup_firstname%> <%=thesis.Sup_lastname%>
+        <br>
+        <strong>Field: </strong>
+        <%=thesis.field%>
+        <br>
+        <strong>Cluster: </strong>
+        <%=thesis.cluster%>
+        <br>
+        <br>
+        <button type="button" class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#moreInfo<%=thesis.serial_number%>">
+          <i class="fas fa-info"></i>
+          More Info
+        </button>
+        <button type="button" class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#updateThesis<%=thesis.serial_number%>">
+          <i class="fas fa-pen"></i>
+          Update 
+        </button>
+        <% if (thesis.E_firstname) { %>
+          <button type="button" class='btn btn-primary view-btn' data-bs-toggle="modal"
+            data-bs-target="#examinerModalReport<%= thesis.serial_number %>">
+            <i class="fas fa-info"></i>
+            <span class="mx-2">Defense Info</span>
+          </button>
+          <% } %>
+        <% if (thesis.defense_status == 'Pending') { %>
+          <button type="button" 
+                  class="btn btn-primary view-btn" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#defenserequest<%= thesis.serial_number %>">
+              <i class="fas fa-plus-square"></i>
+              Add Defense
+          </button>
+      <% } %>
+        <!-- Info Modal -->
+      <div class="modal fade" id="moreInfo<%=thesis.serial_number%>" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="">
+                <%=thesis.title%>
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped table-bordered">
+                  <tr>
+                    <td><i class="fas fa-hashtag"></i> Serial No </td>
+                    <td>
+                      <%=thesis.serial_number%>
+                    </td>
+                  </tr>
+                <tr>
+                  <td><i class="far fa-lightbulb"></i> Field </td>
+                  <td>
+                    <%=thesis.field%>
+                  </td>
+                </tr>
+                <tr>
+                  <td> <i class="fas fa-university"></i> Cluster </td>
+                  <td>
+                    <%=thesis.cluster%>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-calendar-day"></i> Start Date</td>
+                  <td>
+                    <%= locals.moment(thesis.start_date).format('Do MMMM, YYYY') %>
+                  </td>
+                </tr>
+                <% if (thesis.end_date) { %>
+                  <tr>
+                    <td><i class="fas fa-calendar-day"></i> End Date</td>
+                    <td>
+                      <%= locals.moment(thesis.end_date).format('Do MMMM, YYYY') %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td> <i class="far fa-clock"></i> Duration</td>
+                    <td>
+                      <%= thesis.duration %>
+                    </td>
+                  </tr>
+                <% } %>
+                <% if (thesis.presentation_date) { %>
+                  <tr>
+                    <td>
+                      <i class="fas fa-calendar-day"></i> Presentation Date
+                    </td>
+                    <td>
+                      <%= locals.moment(thesis.presentation_date).format('Do MMMM, YYYY') %>
+                    </td>
+                  </tr>
+                <% } %>
+                
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary view-btn" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Examiner information Modal -->
+      <div class="modal fade" id="examinerModalReport<%=thesis.serial_number%>" data-bs-backdrop="static" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="">
+                <%=thesis.title%>
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <td><i class="fas fa-chalkboard-teacher"></i> Examiner </td>
+                  <td>
+                    <%=thesis.E_firstname%> <%=thesis.E_lastname%>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-calendar-day"></i> Defense Date</td>
+                  <td>
+                    <%=locals.moment(thesis.defense_date).utcOffset('+0000').format('Do MMMM, YYYY')%>
+                  </td>
+                </tr>
+                <tr>
+                  <td><i class="fas fa-university"></i> Location</td>
+                  <td>
+                    <%=thesis.location%>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- defense modal -->
+      <div class="modal fade" id="defenserequest<%=thesis.serial_number%>" data-bs-backdrop="static" tabindex="-1"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="">
+                Add Defense for <%= thesis.title%>
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form name="form<%=thesis.serial_number %>" method="POST" class="needs-validation"
+                action="/admin/addDefense/<%=thesis.serial_number%>">
+                <div class="mb-3">
+                  <label for="start-date" class="col-form-label">Start Date :</label>
+                    <input type="date" class="form-control" id="start-date"  value="<%= thesis.start_date.toISOString().split('T')[0] %>" readonly/>
+                </div>
+                <% if (thesis.end_date) { %>
+                  <div class="mb-3">
+                    <label for="end-date" class="col-form-label">End Date :</label>
+                    <input type="date" class="form-control" id="end-date"  value="<%= thesis.end_date.toISOString().split('T')[0] %>" readonly/>
+                  </div>
+                <% } %>
+                <div class="mb-3">
+                  <label for="defence-date" class="col-form-label">Defence Date</label>
+                  <input type="date" class="form-control" name="date" required>
+                </div>
+                <div class="mb-3">
+                  <label for="location" class="col-form-label">Location</label>
+                  <input type="text" class="form-control" name="location" placeholder="Pulchowk campus"
+                    required>
+                </div>
+                <div class="container mt-5 px-2">
+                  <div class="table-responsive" id="examiner-table">
+                    <table class="table table-responsive table-borderless ">
+                      <caption id="examiner-caption">Add Examiner</caption>
+                      <thead>
+                        <tr class="bg-light">
+
+                          <th scope="col" width="5%">#</th>
+                          <th scope="col" width="5%">Id</th>
+                          <th scope="col" width="10%">Cluster</th>
+                          <th scope="col" width="20%"> Name</th>
+                          <th scope="col" width="20%">Field of Work</th>
+                          <th scope="col" width="15%">Examiner Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <% examiners.filter(examiner=>examiner.cluster==thesis.cluster).forEach(examiner=> { %>
+
+                            <th scope="row"><input class="form-check-input" type="radio" name='examiner' value="<%=examiner.id%>" required></th>
+                            <td>
+                              <%=examiner.id %>
+                            </td>
+                            <td>
+                              <%=examiner.cluster %>
+                            </td>
+                            <td><img src="https://i.imgur.com/VKOeFyS.png" width="25">
+                              <%= examiner.first_name%> <%=examiner.last_name%>
+                            </td>
+                            <td>
+                              <%= examiner.field_of_work %>
+                            </td>
+                            <td>
+                              <span class="fw-bolder">
+                                <%= examiner.is_national ? "Internal" : "External" %>
+                              </span>
+                            </td>
+                        </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                    <script type="text/javascript">
+                      async function getSelectedRadioButton(thesisNo) {
+                      var form = document.forms["form" + thesisNo];
+                      var dateField = form.querySelector('input[name="date"]').value.trim();
+                      var locationField = form.querySelector('input[name="location"]').value.trim();
+                      var selectedRadio = form.querySelector('input[name="examiner"]:checked'); // Select the checked radio button
+                      var examinerAlert = document.getElementById("examiner-alert" + thesisNo);
+                      if (!selectedRadio || !dateField || !locationField) {
+                          examinerAlert.style.display = "block";
+                          return;
+                      } else {
+                          examinerAlert.style.display = "none";
+                      }
+
+                      console.log(Object.fromEntries(new FormData(form).entries()));  // Debugging
+                      form.submit();
+                  }
+                    </script>
+                  </div>
+                </div>
+                <div class="alert alert-danger" role="alert" style="display: none;"
+                  id="examiner-alert<%= thesis.serial_number %>">
+                  <i class="fas fa-exclamation-triangle"></i> Fill all the fields.
+                </div>
+                <button type="button" class="btn btn-primary view-btn"
+                  onclick="getSelectedRadioButton('<%= thesis.serial_number %>')"
+                  id="examiner-btn">Add</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary view-btn"
+                data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- update Modal -->
+      <div class="modal fade" id="updateThesis<%=thesis.serial_number%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                <%=thesis.title%>
+              </h5>
+              <button type="button" class="btn-close view-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="/admin/updatethesis/<%=thesis.serial_number%>" class="needs-validation" id="thesisform">
+                <div class="mb-3">
+                  <label for="start-date" class="col-form-label">Start Date :</label>
+                  <input type="date" class="form-control" id="start-date" name="start_date" value="<%= thesis.start_date.toISOString().split('T')[0] %>" readonly required />
+                </div>
+                <div class="mb-3">
+                  <label for="end-date" class="col-form-label">End Date :</label>
+                  <% if (thesis.end_date) { %>
+                    <input type="date" class="form-control" id="end-date" name="end_date" value="<%= thesis.end_date.toISOString().split('T')[0] %>" required />
+                  <% } else { %>
+                    <input type="date" class="form-control" id="end-date" name="end_date" required />
+                  <% } %>
+                </div>
+                <div class="mb-3">
+                  <label for="field" class="col-form-label">Field :</label>
+                  <input type="text" class="form-control" id="field" name="field" value="<%=thesis.field%>"maxlength="50" required readonly />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetForm()">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary view-btn">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+</div>
+<%- include('../dashboardFooter.ejs') %>

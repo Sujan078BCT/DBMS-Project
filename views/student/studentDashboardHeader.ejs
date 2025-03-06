@@ -1,0 +1,42 @@
+<%- include('../dashboardHeader.ejs', {type: 'Student' }) %>
+
+    <li class="nav-link">
+        <a href='/student/theses' class='anchor-nav'>
+            <i class="fas fa-graduation-cap sidebar-icon"></i>
+            <span class="mx-2">Theses</span>
+        </a>
+    </li>
+<% if (type == 4) {%>
+    <li class="nav-link">
+        <a href='/student/courses' class='anchor-nav'>
+            <i class="fas fa-book sidebar-icon"></i>
+            <span class="mx-2">Courses</span>
+        </a>
+    </li>
+    <% } %>
+    <li class="nav-link">
+        <a href='/student/publications' class='anchor-nav'>
+            <i class="fas fa-scroll sidebar-icon"></i>
+            <span class="mx-2">Publications</span>
+        </a>
+    </li>
+    <li class="nav-link">
+        <a href='/student/progressReports' class='anchor-nav'>
+            <i class="fas fa-tasks"></i>
+            <span class="mx-2">Progress Reports</span>
+        </a>
+    </li>
+    </ul>
+    <span class="h4 w-100 mb-5">
+        <a href="/student/profile"><i class="fas fa-user sidebar-icon social"></i></a>
+        <a href="/logout"><i class="fas fa-sign-out-alt sidebar-icon social"></i></a>
+    </span>
+    </div>
+
+    <!-- Main Wrapper -->
+    <div class="p-1 my-container active-cont">
+        <!-- Top Nav -->
+        <nav class="navbar op-navbar navbar-light  px-5">
+            <a class="btn border-0" id="menu-btn"><i class="bx bx-menu"></i></a>
+        </nav>
+        <!--End Top Nav -->

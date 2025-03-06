@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        .header-title {
+            font-size: 2rem; /* Reduced font size */
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .navbar {
+            border-bottom: 2px solid #007bff;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1rem; /* Reduced font size */
+            padding: 10px 18px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #007bff;
+            color: white;
+            border-radius: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            font-size: 1.25rem; /* Reduced font size */
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        .list-group-item {
+            border: 1px solid #ddd;
+            padding: 12px 15px; /* Adjusted padding for smaller items */
+            font-size: 1rem; /* Reduced font size */
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .list-group-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-group-item.internal {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .list-group-item.external {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .section-title {
+            color: #007bff;
+            font-weight: 600;
+            font-size: 1.1rem; /* Reduced font size */
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem; /* Reduced font size */
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .card-body h5 {
+            font-size: 1.1rem; /* Reduced font size */
+            font-weight: 500;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <header class="bg-dark text-white text-center py-5">
+        <h1 class="header-title">Welcome to the Homepage</h1>
+        <p>Explore various clusters and check out examiner and supervisor lists</p>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Home</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!-- AIML Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>AIML Cluster</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="section-title">Examiner List:</h5>
+                        <ul class="list-group">
+                            <% examiners.filter(examiner => examiner.cluster == 'AIML').forEach(examiner => { %>
+                                <li class="list-group-item <%= examiner.type == 1 ? 'internal' : 'external' %>">
+                                    <strong><%= examiner.type == 1 ? 'Internal' : 'External' %>:</strong>
+                                    <%= examiner.first_name %> <%= examiner.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+
+                        <h5 class="mt-4 section-title">Supervisor List:</h5>
+                        <ul class="list-group">
+                            <% supervisors.filter(supervisor => supervisor.cluster == 'AIML').forEach(supervisor => { %>
+                                <li class="list-group-item">
+                                    <%= supervisor.first_name %> <%= supervisor.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BioEng Section -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>BioEng Cluster</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="section-title">Examiner List:</h5>
+                        <ul class="list-group">
+                            <% examiners.filter(examiner => examiner.cluster == 'BioEng').forEach(examiner => { %>
+                                <li class="list-group-item <%= examiner.type == 1 ? 'internal' : 'external' %>">
+                                    <strong><%= examiner.type == 1 ? 'Internal' : 'External' %>:</strong>
+                                    <%= examiner.first_name %> <%= examiner.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+
+                        <h5 class="mt-4 section-title">Supervisor List:</h5>
+                        <ul class="list-group">
+                            <% supervisors.filter(supervisor => supervisor.cluster == 'BioEng').forEach(supervisor => { %>
+                                <li class="list-group-item">
+                                    <%= supervisor.first_name %> <%= supervisor.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EDMES Section-->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>EDMES Cluster</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="section-title">Examiner List:</h5>
+                        <ul class="list-group">
+                            <% examiners.filter(examiner => examiner.cluster == 'EDMES').forEach(examiner => { %>
+                                <li class="list-group-item <%= examiner.type == 1 ? 'internal' : 'external' %>">
+                                    <strong><%= examiner.type == 1 ? 'Internal' : 'External' %>:</strong>
+                                    <%= examiner.first_name %> <%= examiner.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+
+                        <h5 class="mt-4 section-title">Supervisor List:</h5>
+                        <ul class="list-group">
+                            <% supervisors.filter(supervisor => supervisor.cluster == 'EDMES').forEach(supervisor => { %>
+                                <li class="list-group-item">
+                                    <%= supervisor.first_name %> <%= supervisor.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--Cyber System-->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Cyber System Cluster</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="section-title">Examiner List:</h5>
+                        <ul class="list-group">
+                            <% examiners.filter(examiner => examiner.cluster == 'Cyber System').forEach(examiner => { %>
+                                <li class="list-group-item <%= examiner.type == 1 ? 'internal' : 'external' %>">
+                                    <strong><%= examiner.type == 1 ? 'Internal' : 'External' %>:</strong>
+                                    <%= examiner.first_name %> <%= examiner.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+
+                        <h5 class="mt-4 section-title">Supervisor List:</h5>
+                        <ul class="list-group">
+                            <% supervisors.filter(supervisor => supervisor.cluster == 'Cyber System').forEach(supervisor => { %>
+                                <li class="list-group-item">
+                                    <%= supervisor.first_name %> <%= supervisor.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enviro Tech-->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Enviro Tech Cluster</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="section-title">Examiner List:</h5>
+                        <ul class="list-group">
+                            <% examiners.filter(examiner => examiner.cluster == 'Enviro Tech').forEach(examiner => { %>
+                                <li class="list-group-item <%= examiner.type == 1 ? 'internal' : 'external' %>">
+                                    <strong><%= examiner.type == 1 ? 'Internal' : 'External' %>:</strong>
+                                    <%= examiner.first_name %> <%= examiner.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+
+                        <h5 class="mt-4 section-title">Supervisor List:</h5>
+                        <ul class="list-group">
+                            <% supervisors.filter(supervisor => supervisor.cluster == 'Enviro Tech').forEach(supervisor => { %>
+                                <li class="list-group-item">
+                                    <%= supervisor.first_name %> <%= supervisor.last_name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Pulchowk Engineering Campus</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- For Font Awesome icons -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

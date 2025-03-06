@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="stylesheets/loginStyle.css" />
+    <title>Register</title>
+  </head>
+
+  <body>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Pills navs -->
+        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="tab-student"
+              data-mdb-toggle="pill"
+              data-toggle="tab"
+              href="#pills-student"
+              role="tab"
+              aria-controls="pills-student"
+              aria-selected="true"
+              >Student</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="tab-examiner"
+              data-mdb-toggle="pill"
+              data-toggle="tab"
+              href="#pills-examiner"
+              role="tab"
+              aria-controls="pills-examiner"
+              aria-selected="true"
+              >Examiner</a
+            >
+          </li>
+        </ul>
+        <!-- Pills navs -->
+
+        <!-- Student -->
+        <div class="tab-content">
+          <div
+            class="tab-pane fade show active"
+            id="pills-student"
+            role="tabpanel"
+            aria-labelledby="tab-student"
+          >
+            <form method="POST" action="/register/student">
+              <!-- First name -->
+              <div class="md-form fadeIn first">
+                <input
+                  type="text"
+                  id="student-first-name"
+                  name="firstName"
+                  class="form-control"
+                  placeholder="First name"
+                  maxlength="20"
+                  required
+                />
+              </div>
+              <!-- Last name -->
+              <div class="md-form fadeIn first">
+                <input
+                  type="text"
+                  id="student-last-name"
+                  name="lastName"
+                  class="form-control"
+                  placeholder="Last name"
+                  maxlength="20"
+                  required
+                />
+              </div>
+              <!-- Email -->
+              <div class="md-form fadeIn second">
+                <input
+                  type="email"
+                  id="student-email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Email"
+                  maxlength="50"
+                  required
+                />
+              </div>
+              <!-- Faculty -->
+              <div class="md-form fadeIn second">
+                <input
+                  type="text"
+                  id="student-faculty"
+                  name="faculty"
+                  class="form-control"
+                  placeholder="Faculty"
+                  required
+                  maxlength="20"
+                />
+              </div>
+              <!-- Address -->
+              <div class="md-form fadeIn third">
+                <input
+                  type="text"
+                  id="student-address"
+                  name="address"
+                  class="form-control"
+                  placeholder="Address"
+                  maxlength="50"
+                  required
+                />
+              </div>
+              <!-- Password -->
+              <div class="md-form fadeIn third">
+                <input
+                  type="password"
+                  id="student-password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Password"
+                  maxlength="20"
+                  required
+                />
+              </div>
+              <!-- Type -->
+              <div
+                class="btn-group fadeIn fourth"
+                role="group"
+                aria-label="Basic radio toggle button group"
+              >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="type"
+                  id="Domestic"
+                  autocomplete="off"
+                  value="1"
+                  checked
+                />
+                <label class="btn btn-outline-secondary" for="Domestic"
+                  >Domestic</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="type"
+                  id="International"
+                  autocomplete="off"
+                  value="0"
+                />
+                <label class="btn btn-outline-secondary" for="International"
+                  >International</label
+                >
+              </div>
+              <!-- Register -->
+              <div class="fadeIn fourth" style="padding-top: 5px">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block mb-4"
+                  id="register-button"
+                >
+                  Register
+                </button>
+              </div>
+            </form>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="pills-examiner"
+            role="tabpanel"
+            aria-labelledby="tab-examiner"
+          >
+            <form method="POST" action="register/examiner">
+              <!-- First name -->
+              <div class="md-form fadeIn first">
+                <input
+                  type="text"
+                  id="examiner-first-name"
+                  name="firstName"
+                  class="form-control"
+                  placeholder="First name"
+                  maxlength="20"
+                  required
+                />
+              </div>
+              <!-- Last name -->
+              <div class="md-form fadeIn first">
+                <input
+                  type="text"
+                  id="examiner-last-name"
+                  name="lastName"
+                  class="form-control"
+                  placeholder="Last name"
+                  maxlength="20"
+                  required
+                />
+              </div>
+              <!-- Email -->
+              <div class="md-form fadeIn second">
+                <input
+                  type="email"
+                  id="examiner-email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Email"
+                  maxlength="50"
+                  required
+                />
+              </div>
+              <!-- Field of work -->
+              <div class="md-form fadeIn second">
+                <input
+                  type="text"
+                  id="examiner-fieldOfWork"
+                  name="fieldOfWork"
+                  class="form-control"
+                  placeholder="Field of work"
+                  maxlength="20"
+                  required
+                />
+              </div>
+              <!-- Cluster Type -->
+              <div class="md-form fadeIn second d-flex align-items-center">
+                <label for="cluster" class="form-label me-3" style="min-width: 150px;">Cluster :</label>
+                <select id="cluster" name="cluster" class="form-select flex-grow-1"
+                  style="background-color: #f8f9fa; border-radius: 5px; border: 1px solid #dee2e6; height: 48px; margin-right:2rem" required>
+                  <option value="" hidden selected>-- Select a Cluster --</option>
+                  <option value="AIML">AIML</option>
+                  <option value="EDMES">EDMES</option>
+                  <option value="BioEng">BioEng</option>
+                  <option value="Cyber System">Cyber System</option>
+                  <option value="Enviro Tech">Enviro Tech</option>
+                </select>
+              </div>
+              <!-- Password -->
+              <div class="md-form fadeIn third">
+                <input
+                  type="password"
+                  id="examiner-password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Password"
+                  maxlength="20"
+                  required
+                />
+              </div>
+              <!-- Register -->
+              <div class="fadeIn fourth" style="padding-top: 5px">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block mb-4"
+                  id="register-button"
+                >
+                  Register
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pills content -->
+    </div>
+    <% if (locals.toastState === 'success') {%>
+    <div
+      class="toast align-items-center bg-success"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      style="position: absolute; top: 10px; right: 10px"
+    >
+      <div class="d-flex">
+        <div class="toast-body"><%=locals.toastMessage%></div>
+        <button
+          type="button"
+          class="btn-close me-2 m-auto"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+    <%} else if (locals.toastState === 'error') {%>
+    <div
+      class="toast align-items-center bg-danger"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      style="position: absolute; top: 10px; right: 10px"
+    >
+      <div class="d-flex">
+        <div class="toast-body"><%=locals.toastMessage%></div>
+        <button
+          type="button"
+          class="btn-close me-2 m-auto"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+    <%}%> <% locals.app.locals.toastState = ''; locals.app.locals.toastMessage =
+    ''; %>
+  </body>
+  <%if(typeof ok !=='undefined' && ok == 'no'){%>
+  <script>
+    studentEmail = document.getElementById('student-email');
+    studentEmail.style.borderColor = 'red';
+    studentEmail.setCustomValidity('this email is already registered');
+  </script>
+  <%}%>
+
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+    var toastList = toastElList.map(function (toastEl) {
+      return new bootstrap.Toast(toastEl);
+    });
+    toastList.forEach(toast => toast.show());
+    console.log(toastList);
+  </script>
+</html>

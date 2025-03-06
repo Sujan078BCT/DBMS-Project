@@ -1,0 +1,91 @@
+<%- include('adminDashboardHeader.ejs') %>
+    <button type="button" class="btn btn-primary view-btn" style="margin-left: 15px;" disabled>
+        Unapproved Students  <span class="badge bg-secondary"><%=unapprovedStudents.length%> </span>
+    </button>
+    <div class="row m-2">
+        <% unapprovedStudents.forEach(student=> { %>
+            <div class="card mb-3 col-5 m-2">
+                <div class="card-body">
+                    <span>
+                        <h4 class="card-title "><i class="fas fa-user-tie"></i>
+                            <%=student.first_name%>
+                                <%=student.last_name%>
+                                    </h5>
+                    </span>
+                    <p class="card-text"><br><strong>Faculty: </strong>
+                        <%=student.faculty%> <br>
+                        <strong>Address: </strong>
+                        <%=student.address%><br>
+                        <div class="row">
+                            <div class="col-auto">
+                                <form method="POST" action="/admin/approved/<%=student.id%>" class="needs-validation">
+                                    <button type="submit" class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="far fa-check-square"></i>
+                                        <span class="mx-2">Accept</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-auto ms-3"> <!-- ms-3 adds a left margin to create some space between the buttons -->
+                                <form method="POST" action="/admin/reject/<%=student.id%>" class="needs-validation">
+                                    <button type="submit" class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="far fa-times-circle"></i>
+                                        <span class="mx-2">Reject</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>                            
+                    </p>
+                </div>
+            </div>
+            <% }); %>
+    </div>
+    <button type="button" class="btn btn-primary view-btn" style="margin-left: 15px;" disabled>
+        Approved Students <span class="badge bg-secondary"><%=approvedStudents.length%> </span>
+    </button>
+    <div class="row m-2">
+        <% approvedStudents.forEach(student=> { %>
+            <div class="card mb-3 col-5 m-2">
+                <div class="card-body">
+                    <span>
+                        <h4 class="card-title "><i class="fas fa-user-tie"></i>
+                            <%=student.first_name%>
+                                <%=student.last_name%>
+                                    </h5> 
+                    </span>
+                    <p class="card-text"><br><strong>Faculty: </strong>
+                        <%=student.faculty%> <br>
+                            <strong>Address: </strong>
+                            <%=student.address%>
+                    </p>
+                    <button type="button" class="btn btn-primary view-btn" data-bs-toggle="modal" data-bs-target="#delete<%=student.id%>">
+                        <i class="far fa-minus-square"></i>
+                        Delete
+                    </button>
+                    <div class="modal fade" id="delete<%=student.id%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">
+                                <%=student.first_name%> <%=student.last_name%>
+                              </h5>
+                              <button type="button" class="btn-close view-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="/admin/<%=student.id%>/students/delete" method="post">
+                                Are you sure you want to delete this Student? 
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary view-btn" data-bs-dismiss="modal">No</button>
+                              <button type="submit" class="btn btn-primary view-btn">Yes</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+            <% }); %>
+    </div>
+
+    <%- include('../dashboardFooter.ejs') %>
