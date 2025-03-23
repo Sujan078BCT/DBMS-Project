@@ -12,3 +12,4 @@ student create and proposed thesis to supervisor for supervison. Timely student 
 - admin assign one examiner for supervisor.
 - examiner can be internal or external.
 
+  you can see project demonstration through screenshot folder
