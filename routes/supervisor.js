@@ -61,20 +61,18 @@ router.get(
     });
   }
 );
-// get all student name and progress report prepared by them
+
 router.get(
   '/reports',
   authUser,
   authRole([ROLE.SUPERVISOR]),
   function (req, res) {
     const supervisorId = req.session.userId;
-    supervisorProcedures
-      .supervisorViewAllStudentsReports(supervisorId)
-      .then(response => {
-        res.render('supervisor/reports', {
-          reports: response,
-        });
+    supervisorProcedures.supervisorViewStudents(supervisorId).then(response => {
+      res.render('supervisor/supervisedthesis', {
+        students: response
       });
+    });
   }
 );
 
@@ -90,7 +88,17 @@ router.post('/students', function (req, res) {
       });
     });
 });
-
+router.post('/studentReports', function (req, res) {
+  const thesisId = req.body.view;
+  console.log(thesisId);
+  supervisorProcedures
+    .supervisorViewStudentReports(thesisId)
+    .then(response => {
+      res.render('supervisor/reports', {
+        reports: response
+      });
+    });
+});
 router.post('/reports/:thesisId', function (req, res) {
   const thesisId = req.params.thesisId;
   const supervisorId = req.session.userId;

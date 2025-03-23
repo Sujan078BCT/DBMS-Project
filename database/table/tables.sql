@@ -224,7 +224,7 @@ CREATE TABLE STUDENT_ADD_PUBLICATION
 
 CREATE TABLE proposed_thesis(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    student_id INT,
+    student_id INT UNIQUE,
 	title VARCHAR(50) UNIQUE,
     cluster VARCHAR(50),
     field VARCHAR(50),

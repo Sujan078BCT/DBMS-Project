@@ -16,7 +16,6 @@ const registerRequest = async (
     const query = `CALL RegistrationRequest(?,?,?,?,?,?,?)`;
     connection.execute(query,student,(err,results)=>{
       if(err){
-        console.error(err);
         if(err.code =='ER_SIGNAL_EXCEPTION'&&err.sqlMessage.includes('already'))
           return reject(new Error('Email already in use.'));
       }
@@ -34,7 +33,6 @@ const viewMyProfile = async (
     connection.execute(query,student,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -54,7 +52,6 @@ const updateProfile = async (
     const query = 'CALL editStudentProfile(?,?,?,?,?)';
     connection.execute(query,updateStudent,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);
@@ -70,7 +67,6 @@ const viewAllMyTheses = async (
     const query = 'CALL viewAllMyTheses(?)';
     connection.execute(query,id,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -86,7 +82,6 @@ const viewCoursesGrades = async (
     const query = 'CALL ViewCoursesGrades(?)';
     connection.execute(query,id,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -101,7 +96,6 @@ const viewMyReports = async (
     const query = 'CALL viewMyReports(?)';
     connection.execute(query,id,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -116,7 +110,6 @@ const viewMyPublications = async (
     const query = 'CALL viewMyPublications(?)';
     connection.execute(query,id,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -136,7 +129,6 @@ const addPublication = async (
     const query = 'CALL addPublication(?,?,?,?,?,?)';
     connection.execute(query,publication,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);
@@ -153,7 +145,6 @@ const addProgressReport = async (
     const query = 'CALL AddProgressReport(?,?)';
     connection.execute(query,progress_report,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);
@@ -172,7 +163,6 @@ const fillProgressReport = async (
     const query = 'CALL fillProgressReport(?,?,?,?)';
     connection.execute(query,report_status,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);
@@ -189,7 +179,6 @@ const linkPubThesis = async (
     const query = 'CALL linkPubThesis(?,?)';
     connection.execute(query,linkthesis,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);
@@ -203,8 +192,10 @@ const proposedthesis = async(id,title,cluster,field)=>{
     const query = 'CALL proposedthesis(?,?,?,?)';
     connection.execute(query,thesis_info,(err,result)=>{
       if(err){
-        console.log(err);
-        return reject(new Error(err));
+        if(err.code == 'ER_DUP_ENTRY')
+        return reject(new Error('Cannot proposed multiple thesis.'));
+        else
+        return reject(new Error('Thesis title in use or ongoing thesis.'))
       } 
       return resolve(result);
     })
@@ -216,7 +207,6 @@ const createdthesis = async(id)=>{
       const query = 'CALL createdthesis(?)';
       connection.execute(query,student_id,(err,result)=>{
         if(err){
-          console.log(err);
           return reject(new Error(err));
         }
         return resolve(result[0]);
@@ -228,7 +218,6 @@ const supervisorlist = async()=>{
     const query = 'CALL AdminListSup()';
     connection.execute(query,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -241,7 +230,6 @@ const storethesis = async(id,thesis_id,supervisor_id)=>{
     const query = 'CALL sendThesisRequest(?,?,?)';
     connection.execute(query,thesis_request_info,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -254,7 +242,6 @@ const viewThesisRequest = async(id)=>{
     const query = 'CALL viewThesisRequest(?)';
     connection.execute(query,stud_id,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);

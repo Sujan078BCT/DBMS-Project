@@ -8,7 +8,6 @@ const listSupervisors = async () => {
       connection.execute(query,(err,result)=>{
         if(err)
         {
-          console.log(err);
           return reject();
         }
         return resolve(result[0]);
@@ -20,7 +19,6 @@ const listexaminers = async()=>{
       const query = 'CALL listexaminers()';
       connection.execute(query,(err,result)=>{
         if(err){
-          console.log(err);
           return reject(new Error(err));
         }
         return resolve(result[0]);

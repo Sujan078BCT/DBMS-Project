@@ -9,7 +9,6 @@ const adminViewProfile = async (
     connection.execute(query,admin,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -23,7 +22,6 @@ const listSupervisors = async () => {
     connection.execute(query,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -37,7 +35,6 @@ const listTheses = async () => {
     connection.execute(query,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -49,7 +46,6 @@ const ongoingtheses = async()=>{
   const query = 'CALL ongoingtheses()';
   connection.execute(query,(err,result)=>{
     if(err){
-      console.log(err);
       return reject(new Error(err));
     }
     return resolve(result[0]);
@@ -60,9 +56,8 @@ const pendingtheses = async()=>{
   return new Promise((resolve,reject)=>{
     const query = 'CALL pendingtheses()';
     connection.execute(query,(err,result)=>{
-      if(err){
-        console.log(err);
-        return reject(new Error(err));
+      if(err){ 
+       return reject(new Error(err));
       }
       return resolve(result[0]);
     })
@@ -74,7 +69,6 @@ const listStudents = async()=>{
     const query = 'CALL listStudents()';
     connection.execute(query,(err,results)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(results[0]);
@@ -87,7 +81,6 @@ const listUnapprovedStudents = async()=>{
     const query = 'CALL unapprovedStudent()';
     connection.execute(query,(err,results)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(results[0]);
@@ -100,19 +93,18 @@ const approvedStudent = async id=>{
     const query = `CALL StudentRegister(${id})`;
     connection.execute(query,(err,results)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(results);
     })
   })
 }
+
 const rejectStudent = async id=>{
   return new Promise((resolve,reject)=>{
     const query = `CALL rejectStudent(${id})`;
     connection.execute(query,(err,results)=>{
-      if(err){
-        console.log(err);
+      if(err){       
         return reject(new Error(err));
       }
       return resolve(results);
@@ -123,8 +115,7 @@ const listexaminers = async()=>{
   return new Promise((resolve,reject)=>{
     const query = 'CALL listexaminers()';
     connection.execute(query,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){       
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -135,8 +126,7 @@ const listUnapprovedExaminers = async()=>{
   return new Promise((resolve,reject)=>{
     const query = 'CALL listUnapprovedExaminers()';
     connection.execute(query,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -147,8 +137,7 @@ const approvedExaminer = async(id)=>{
   return new Promise((resolve,reject)=>{
     const query = `CALL ExternalExaminerRegister(${id})`;
     connection.execute(query,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -159,8 +148,7 @@ const rejectExaminer = async(id)=>{
   return new Promise((resolve,reject)=>{
     const query = `CALL rejectExaminer(${id})`;
     connection.execute(query,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){       
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -172,8 +160,7 @@ const numOfOnGoingTheses = async () => {
     const query = 'CALL AdminViewOnGoingTheses(@count)';
     connection.execute(query,(err,result)=>{
       if(err)
-      {
-        console.log(err);
+      {     
         return reject();
       }
     const fetchquery = `SELECT @count AS count`;
@@ -191,8 +178,7 @@ const updatethesis = async(thesisid,start_date,end_date,field)=>{
     const thesis_info = [thesisid,start_date,end_date,field];
     const query = 'CALL updatethesis(?,?,?,?)';
     connection.execute(query,thesis_info,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result);
@@ -204,8 +190,7 @@ const deletethesis = async id =>{
     const serial_number= [id];
     const query = 'CALL deletethesis(?)';
     connection.execute(query,serial_number,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){       
         return reject(new Error(err));
       }
       return resolve(result);
@@ -217,8 +202,7 @@ const deletependingthesis = async id =>{
     const serial_number= [id];
     const query = 'CALL deletependingthesis(?)';
     connection.execute(query,serial_number,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result);
@@ -230,8 +214,7 @@ const addDefense = async (thesis_id,defense_date,location,examiner_id)=>{
     const defense_info = [thesis_id,defense_date,location,examiner_id];
     const query = 'CALL addDefense(?,?,?,?)';
     connection.execute(query,defense_info,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){  
         return reject(new Error(err));
       }
       return resolve(result);
@@ -244,7 +227,6 @@ const deleteuser = async id =>{
     const query = 'CALL deleteuser(?)';
     connection.execute(query,student_id,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);

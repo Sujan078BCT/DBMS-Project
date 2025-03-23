@@ -14,7 +14,6 @@ const ExaminerRegisterRequest = async (
     const query = `CALL ExaminerRegistrationRequest(?,?,?,?,?,?)`;
     connection.execute(query,student,(err,results)=>{
       if(err){
-        console.error(err);
         if(err.code =='ER_SIGNAL_EXCEPTION'&&err.sqlMessage.includes('already'))
           return reject(new Error('Email already in use.'));
       }
@@ -36,8 +35,7 @@ const examinerRegister = async (
     const examiner = [firstName,lastName,fieldOfWork,cluster,email,password];
     const query = 'CALL ExaminerRegister(?,?,?,?,?,?,?)';
     connection.execute(query,examiner,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){       
         if(err.code == 'ER_SIGNAL_EXCEPTION' && err.sqlMessage == 'Email already exists')
           return reject(new Error("Email already in use."));
       }
@@ -57,8 +55,7 @@ const updateProfile = async(
     const updateExaminer = [id,email,first_name,last_name,fieldOfWork,type];
     const query = 'CALL editExaminerProfile(?,?,?,?,?,?)';
     connection.execute(query,updateExaminer,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result);
@@ -73,8 +70,7 @@ const showExaminerTheses = async (
     const id = [examinerId];
     const query = 'CALL ShowExaminerTheses(?)';
     connection.execute(query,id,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -89,8 +85,7 @@ const showThesisSupervisors = async (
     const serial_no = [thesisSerialNo];
     const query = 'CALL ShowThesisSupervisors(?)';
     connection.execute(query,serial_no,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){       
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -105,8 +100,7 @@ const showExaminerDefenses = async (
     const id = [examinerId];
     const query = 'CALL ShowExaminerDefense(?)';
     connection.execute(query,id,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -122,8 +116,7 @@ const addGrade = async (
     const thesis_grade = [thesisSerialNo,grade];
     const query = 'CALL AddDefenseGrade(?,?)';
     connection.execute(query,thesis_grade,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){      
         return reject(new Error(err));
       }
       return resolve(result);
@@ -140,8 +133,7 @@ const addComment = async (
     const add_comment = [id,thesisSerialNo,comment];
     const query = 'CALL AddCommentsGrade(?,?,?)';
     connection.execute(query,add_comment,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result);
@@ -156,8 +148,7 @@ const searchForThesis = async (
     const search = [searchTerm];
     const query = 'CALL SearchForThesis(?)';
     connection.execute(query,search,(err,result)=>{
-      if(err){
-        console.log(err);
+      if(err){        
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -173,8 +164,7 @@ const showProfile = async(
     const query = 'CALL viewExaminerProfile(?)';
     connection.execute(query,examiner,(err,result)=>{
       if(err)
-      {
-        console.log(err);
+      {        
         return reject();
       }
       return resolve(result[0]);

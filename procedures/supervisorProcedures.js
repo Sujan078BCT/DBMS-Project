@@ -13,7 +13,6 @@ const supervisorRegister = async (
     const query = 'CALL SupervisorRegister(?,?,?,?,?)';
     connection.execute(query,supervisor,(err,result)=>{
       if(err){
-        console.log(err);
         if(err.code =='ER_SIGNAL_EXCEPTION' && err.sqlMessage=='Email already exists')
           return reject(new Error("Email already in use."));
       }
@@ -31,7 +30,6 @@ const viewSupervisorProfile = async (
     connection.execute(query,supervisor,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       console.log(result);
@@ -46,7 +44,6 @@ const supervisorViewStudents = async supervisorId => {
     const query = 'CALL ViewSupStudentsYears(?)';
     connection.execute(query,id,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
@@ -61,7 +58,6 @@ const supervisorViewThesis = async supervisorId => {
     connection.execute(query,supervisor,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -75,7 +71,6 @@ const viewUnapprovedThesis = async supervisorId =>{
     connection.execute(query,supervisor,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -89,7 +84,6 @@ const approvedThesis = async (supervisorId,thesisId)=>{
     connection.execute(query,data,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result);
@@ -103,7 +97,6 @@ const rejectThesis = async (supervisorId,thesisId)=>{
     connection.execute(query,data,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result);
@@ -116,22 +109,20 @@ const viewExaminer = async () => {
     const query = 'CALL ViewExaminer()';
     connection.execute(query,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result[0]);
   })
 })
 };
-// view student name and progress report of them
-const supervisorViewAllStudentsReports = async supervisorId => {
+// view student thesis reports
+const supervisorViewStudentReports = async (thesisId) => {
   return new Promise((resolve,reject)=>{
-    const supervisor = [supervisorId];
-    const query = 'CALL viewAllStudentsReports(?)';
-    connection.execute(query,supervisor,(err,result)=>{
+    const reportInfo = [thesisId];
+    const query = 'CALL viewStudentReports(?)';
+    connection.execute(query,reportInfo,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -139,6 +130,7 @@ const supervisorViewAllStudentsReports = async supervisorId => {
   })
 };
 
+// view student published research papers
 const supervisorViewStudentPublications = async (studentId,thesisId) => {
   return new Promise((resolve,reject)=>{
     const id = [studentId,thesisId];
@@ -146,14 +138,12 @@ const supervisorViewStudentPublications = async (studentId,thesisId) => {
     connection.execute(query,id,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
     })
   })
 };
-
 const isDomestic = async thesisId => {
   return new Promise((resolve,reject)=>{
     const id = [thesisId];
@@ -161,7 +151,6 @@ const isDomestic = async thesisId => {
     connection.execute(query,id,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result[0]);
@@ -176,7 +165,6 @@ const supervisorAddDefenseDomestic = async (thesisId, location, date) => {
     connection.execute(query,data,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result);
@@ -191,7 +179,6 @@ const supervisorAddDefenseInternational = async (thesisId, location, date) => {
     connection.execute(query,data,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result);
@@ -206,7 +193,6 @@ const supervisorCancelThesis = async thesisId => {
     connection.execute(query,id,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result);
@@ -227,7 +213,6 @@ const supervisorAddExaminer = async (
     connection.execute(query,examiner,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result);
@@ -247,7 +232,6 @@ const supervisorEvaluateReport = async (
     connection.execute(query,eval_report,(err,result)=>{
       if(err)
       {
-        console.log(err);
         return reject();
       }
       return resolve(result);
@@ -260,7 +244,6 @@ const updatethesis = async(thesisid,start_date,end_date,cluster,field,presentati
     const query = 'CALL supUpdatethesis(?,?,?,?,?,?)';
     connection.execute(query,thesis_info,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);
@@ -273,7 +256,6 @@ const defenserequest = async(supervisorId,thesisId)=>{
     const query = 'CALL sendDefenseRequest(?,?)';
     connection.execute(query,thesis_info,(err,result)=>{
       if(err){
-        console.log(err);
         return reject(new Error(err));
       }
       return resolve(result);
@@ -291,7 +273,7 @@ module.exports = {
   viewExaminer,
   supervisorCancelThesis,
   supervisorAddExaminer,
-  supervisorViewAllStudentsReports,
+  supervisorViewStudentReports,
   supervisorEvaluateReport,
   viewSupervisorProfile,
   viewUnapprovedThesis,

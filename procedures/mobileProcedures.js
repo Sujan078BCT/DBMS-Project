@@ -7,8 +7,7 @@ const viewMobileNumber = async (
       const query = 'CALL viewMobile(?)';
       connection.execute(query,info,(err,result)=>{
         if(err)
-        {
-          console.log(err);
+        {          
           return reject();
         }
         return resolve(result[0]);

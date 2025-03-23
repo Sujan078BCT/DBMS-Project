@@ -1,6 +1,4 @@
 <%- include('supervisorDashboardHeader.ejs') %>
-
-
   <div class="row m-2">
     <% reports.forEach(report=>{ %>
       <div class="card mb-3 col-4 m-2">
@@ -18,14 +16,6 @@
                 <td><i class="fas fa-hashtag"></i> Serial No </td>
                 <td>
                   <%=report.thesis_serial_number%>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i class="fas fa-user colored-icon"></i> Student Name
-                </td>
-                <td>
-                  <%=report.student_name%>
                 </td>
               </tr>
               <tr>

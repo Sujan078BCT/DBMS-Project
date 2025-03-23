@@ -8,7 +8,6 @@ const userLogin = async (email, password) => {
     const query = 'CALL userLogin(?,?,@success,@id)';
     connection.execute(query,login,(err,result)=>{
     if(err){
-      console.log(err);
       return reject(new Error(err));
     }
     const fetchquery = `SELECT @success AS success,@id AS id`;
@@ -43,7 +42,6 @@ const addMobile = async (id, mobile) => {
     const query = 'CALL addMobile(?,?)';
     connection.execute(query,number,(err,result)=>{
       if(err){
-        console.log(err);
         if(err.code == 'ER_SIGNAL_EXCEPTION' && err.sqlMessage.includes('already'))
         return reject(new Error("Phone number already added."));
       }

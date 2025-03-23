@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path')
 const { StatusCodes } = require('http-status-codes');
 const cookieParser = require('cookie-parser');
-//const logger = require('morgan');
 const session = require('express-session');
 const moment = require('moment');
 

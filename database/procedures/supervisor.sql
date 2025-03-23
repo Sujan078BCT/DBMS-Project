@@ -25,13 +25,18 @@ CREATE PROCEDURE viewSupThesis(
     IN supervisor_id INT
 )
 BEGIN
-    SELECT thesis.*,student.first_name,student.last_name,report.state
+    SELECT  thesis.*,student.first_name,student.last_name,report.state
     FROM supervisor
     INNER JOIN supervised ON supervisor.id = supervised.supervisor_id
     INNER JOIN thesis ON supervised.thesis_serial_number = thesis.serial_number
     INNER JOIN student ON thesis.student_id = student.id
     LEFT JOIN report ON report.thesis_serial_number = thesis.serial_number
-	WHERE supervisor.id = supervisor_id;
+    AND report.state = (
+    SELECT MAX(state) 
+    FROM report 
+    WHERE report.thesis_serial_number = thesis.serial_number
+	)
+	WHERE supervisor.id=supervisor_id;
 END $$
 
 -- view thesis request send by student
@@ -102,7 +107,7 @@ BEGIN
     SET R.status = 'Rejected' WHERE R.supervisor_id = supervisorId AND R.thesis_no = thesisId;
 END $$
 -- View all students’ reports
-CREATE PROCEDURE ViewAllStudentsReports(
+/*CREATE PROCEDURE ViewAllStudentsReports(
     IN supervisor_id INT
 )
 BEGIN
@@ -116,6 +121,20 @@ BEGIN
     WHERE 
         SV.supervisor_id = supervisor_id;
 END $$
+*/
+
+CREATE PROCEDURE ViewStudentReports(
+    IN thesis_id INT
+)
+BEGIN
+    SELECT 
+        R.*, T.title
+    FROM 
+    THESIS AS T
+    INNER JOIN REPORT AS R ON T.serial_number = R.thesis_serial_number
+    WHERE 
+        T.serial_number = thesis_id;
+END
 
 -- check if domestic or not
 CREATE PROCEDURE is_Domestic(

@@ -216,7 +216,7 @@ router.post('/createthesis',(req,res)=>{
     res.redirect('/student/theses');
   })
   .catch(err=>{
-    toast.showToast(req,'error','Thesis Title in Use.');
+    toast.showToast(req,'error',err);
     res.redirect('/student/theses');
   })
 })

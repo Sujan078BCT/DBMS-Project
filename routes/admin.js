@@ -117,7 +117,6 @@ router.post('/updatethesis/:thesisid',function(req,res){
     res.redirect('/admin/theses');
   })
   .catch(err=>{
-    console.log(err);
     toast.showToast(req,'error','Cannot updated Thesis.');
     res.redirect('/admin/theses');
   });
